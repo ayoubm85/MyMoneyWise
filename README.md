@@ -27,7 +27,7 @@
    npm install
    ```
 
-3. **Add you API Key in the .dev file**
+3. **Add you API Key in a .dev file at the root**
 
 3. **Start the application**
    ```sh
