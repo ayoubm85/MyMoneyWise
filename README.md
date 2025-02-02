@@ -39,4 +39,4 @@ This project is licensed under the MIT License.
 
 ---
 
-🔹 **Authors**: Mohamed Amine Dakli, Anis Gadouche, Fares Laadjel, Ayoub Marfouk
+🔹 **Authors**: Mohamed Amine Dakli, Anis Gadouche, Fares Laadjel, Ayoub Marfouk 🔹 ConUHacks25
