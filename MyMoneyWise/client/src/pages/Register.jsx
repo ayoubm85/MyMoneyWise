@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Register.css'; 
 import "../styles/Global.css"; 
 
@@ -19,16 +20,46 @@ const Register = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      console.log('Account Created:', formData);
+    if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match');
+      return;
     }
-  }
+
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          password: formData.password
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        navigate('/login');
+      } else {
+        setError(data.message || 'Registration failed');
+      }
+    } catch (err) {
+      setError('Server error. Please try again later.');
+    }
+  };
 
   return (
     <div className="register-page">
         <h1>Create Your Account</h1>
+        {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleSubmit} className="register-form">
             <div className="input-group">
               <input

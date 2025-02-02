@@ -14,7 +14,6 @@
   height: 70px;
 }
 
-/* Logo */
 .header-logo {
   flex: 1;
   display: flex;
@@ -22,18 +21,17 @@
 }
 
 .header-logo img {
-  height: 45px; /* Ajustement pour une meilleure visibilité */
+  height: 110px; 
   object-fit: contain;
 }
 
-/* Résumé du budget */
 .header-summary {
   flex: 2;
   display: flex;
   padding-right: 10px;
-  justify-content: center; /* Centre les infos */
+  justify-content: center; 
   align-items: center;
-  gap: 40px; /* Augmente l'espace entre chaque info */
+  gap: 40px; 
   font-size: 1rem;
   font-weight: bold;
   color: #333;
@@ -54,7 +52,6 @@
   color: red;
 }
 
-/* Bouton de déconnexion */
 .header-auth {
   flex: 1;
   padding-right: 75px;
