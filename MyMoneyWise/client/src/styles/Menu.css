@@ -1,0 +1,63 @@
+.menu-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh; 
+  padding: 40px 0;
+}
+
+.menu-title {
+  color: transparent;
+  font-size: 3rem;
+  background: linear-gradient(45deg, #4CAF50, #2196F3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin: 0 0 20px;
+  font-family: 'Poppins', sans-serif;
+  text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 2s ease-out;
+}
+
+.menu-grid {
+  display: flex;
+  justify-content: center; 
+  gap: 30px; 
+  flex-wrap: wrap; 
+  max-width: 80%; 
+}
+
+.menu-card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  width: 200px; 
+  height: 180px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+}
+
+.menu-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.menu-icon {
+  font-size: 2.5rem; 
+  display: block;
+  margin-bottom: 15px;
+}
+
+.menu-card h2 {
+  font-size: 1.3rem;
+  font-weight: bold;
+}

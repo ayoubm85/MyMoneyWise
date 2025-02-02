@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import '../styles/Register.css'; 
+import "../styles/Global.css"; 
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -27,24 +28,19 @@ const Register = () => {
 
   return (
     <div className="register-page">
-        <h1 className="site-title">My Money Wise</h1> 
-        <div className="register-container">
-        <h2>Create Your Account</h2>
+        <h1>Create Your Account</h1>
         <form onSubmit={handleSubmit} className="register-form">
             <div className="input-group">
-            <input
-                type="text"
-                id="firstName"
-                name="firstName"
-                placeholder='First Name'
-                value={formData.firstName}
-                onChange={handleChange}
-                required
-            />
-            </div>
-
-            <div className="input-group">
-            <input
+              <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  placeholder='First Name'
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  required
+              />
+              <input
                 type="text"
                 id="lastName"
                 name="lastName"
@@ -52,11 +48,8 @@ const Register = () => {
                 value={formData.lastName}
                 onChange={handleChange}
                 required
-            />
-            </div>
-
-            <div className="input-group">
-            <input
+              />
+              <input
                 type="email"
                 id="email"
                 name="email"
@@ -64,11 +57,8 @@ const Register = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-            />
-            </div>
-
-            <div className="input-group">
-            <input
+              />
+              <input
                 type="password"
                 id="password"
                 name="password"
@@ -76,11 +66,8 @@ const Register = () => {
                 value={formData.password}
                 onChange={handleChange}
                 required
-            />
-            </div>
-
-            <div className="input-group">
-            <input
+              />
+              <input
                 type="password"
                 id="confirmPassword"
                 name="confirmPassword"
@@ -88,11 +75,10 @@ const Register = () => {
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 required
-            />
-            </div>  
+              />
+            </div>
             <button type="submit" className="submit-button">Create Account</button>
         </form>
-        </div>
     </div>
   );
 };

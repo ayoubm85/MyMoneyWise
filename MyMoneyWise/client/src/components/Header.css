@@ -1,0 +1,81 @@
+/* Styles globaux du header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: white;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  height: 70px;
+}
+
+/* Logo */
+.header-logo {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.header-logo img {
+  height: 45px; /* Ajustement pour une meilleure visibilité */
+  object-fit: contain;
+}
+
+/* Résumé du budget */
+.header-summary {
+  flex: 2;
+  display: flex;
+  padding-right: 10px;
+  justify-content: center; /* Centre les infos */
+  align-items: center;
+  gap: 40px; /* Augmente l'espace entre chaque info */
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.budget-info {
+  background: #f5f5f5;
+  padding: 6px 12px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.budget-info span {
+  margin-right: 5px;
+}
+
+.budget-info .negative {
+  color: red;
+}
+
+/* Bouton de déconnexion */
+.header-auth {
+  flex: 1;
+  padding-right: 75px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.header-auth button {
+  background: linear-gradient(45deg, #4CAF50, #2196F3);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+  width: 150px;
+  transition: all 0.3s ease-in-out;
+}
+
+.header-auth button:hover {
+  background: linear-gradient(45deg, #388E3C, #1976D2);
+  transform: scale(1.05);
+}

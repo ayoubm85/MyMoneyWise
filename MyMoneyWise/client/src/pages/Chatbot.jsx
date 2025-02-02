@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../styles/Chatbot.css"; 
+import "../styles/Global.css"
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
@@ -17,7 +18,8 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="chatbot-container">
+    <div className="page-container">
+      <div className="chatbot-container">
       <h1 className="chatbot-title">MyMoneyWise</h1>
       <div className="chat-window">
         {messages.map((msg, index) => (
@@ -36,6 +38,7 @@ const Chatbot = () => {
         />
         <button type="submit" className="chat-send-button">Send</button>
       </form>
+    </div>
     </div>
   );
 };

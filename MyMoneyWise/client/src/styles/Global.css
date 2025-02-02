@@ -1,0 +1,81 @@
+.page-container {
+  padding-top: 80px;
+}
+
+.site-title {
+  color: transparent;
+  background: linear-gradient(45deg, #4CAF50, #2196F3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-align: center;
+  font-size: 64px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin: 0 0 20px;
+  font-family: 'Poppins', sans-serif;
+  text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 2s ease-out;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Applique une hauteur minimale à chaque page */
+.menu-page, .budget-page, .financial-profile-page, .chat-page, .expense-page {
+  min-height: calc(100vh - 40px); /* Ajuste 40px pour en tenir compte si un header/footer existe */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centre le contenu verticalement */
+}
+
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+      transform: translateY(-30px); 
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0); 
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to bottom, #ffffff, #f0f8ff);
+  color: #333;
+}
+
+button {
+  background: linear-gradient(45deg, #4CAF50, #2196F3); 
+  color: white;
+  padding: 15px 40px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(0.95); 
+}
