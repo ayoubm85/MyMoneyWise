@@ -5,7 +5,7 @@ const BudgetSchema = new mongoose.Schema({
   totalBudget: {type: Number, required: true},
   categories: [
     {
-      category: { type: String, enum: ["Savings", "Transport", "Entertainment", "Groceries", "Rent/Mortgage", "Others"], required: true },
+      category: { type: String, enum: ["Savings", "Transport", "Entertainment", "Groceries", "Rent", "Others"], required: true },
       allocatedAmount: { type: Number, required: true },
     }
   ],

@@ -1,34 +1,34 @@
 const Anthropic = require("@anthropic-ai/sdk");
-const FinancialProfile = require("../models/FinancialProfile"); 
 require("dotenv").config();
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY, 
 });
 
-const analyzeBudget = async (budget, expenses, userProfile) => {
+const analyzeBudget = async (budget, expenses, financialProfile) => {
   try {
-    console.log("📊 Analyzing Budget & Financial Profile...");
-
     const budgetSummary = {
       totalBudget: budget.totalBudget,
-      timePeriod: "monthly",
-      categories: budget.categories.map(c => ({
-        name: c.name,
-        allocatedAmount: c.allocatedAmount,
-        spentAmount: expenses
-          .filter(e => e.description.includes(c.name))
-          .reduce((sum, e) => sum + e.amount, 0)
-      }))
+      timePeriod: budget.timePeriod || "monthly",
+      categories: Array.isArray(budget.categories)
+        ? budget.categories.map(c => ({
+            name: c.category || "Unknown Category", 
+            allocatedAmount: c.allocatedAmount || 0,
+            spentAmount: expenses
+              .filter(e => e.category === c.category) 
+              .reduce((sum, e) => sum + e.amount, 0),
+          }))
+        : [],
     };
+    
 
-    const profileSummary = userProfile
+    const profileSummary = financialProfile
       ? {
-          age: userProfile.age,
-          employmentStatus: userProfile.employmentStatus,
-          monthlyIncome: userProfile.monthlyIncome,
-          financialGoal: userProfile.financialGoal,
-          additionalNotes: userProfile.additionalNotes || "None",
+          age: financialProfile.age,
+          employmentStatus: financialProfile.employmentStatus,
+          monthlyIncome:  financialProfile.monthlyIncome,
+          financialGoal:  financialProfile.financialGoal,
+          additionalNotes:  financialProfile.additionalNotes || "None",
         }
       : { message: "No financial profile found for user." };
 
@@ -55,7 +55,8 @@ const analyzeBudget = async (budget, expenses, userProfile) => {
       1. A summary of the user's financial standing.
       2. Insights on overspending, underutilized categories, and budgeting improvements.
       3. Recommendations aligned with their financial goal (e.g., saving strategies, investment options, debt reduction).
-
+       ** IF the data is unknown do not mention it! **
+       ** You are speaking to the person concerned. Use second person pronouns and not user.**
       **Return the response strictly in JSON format:**
       {
         "summary": "Brief financial overview",

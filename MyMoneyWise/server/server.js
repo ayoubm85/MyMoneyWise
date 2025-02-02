@@ -12,7 +12,6 @@ mongoose.connect(process.env.MONGO_URI);
 app.use("/api", require("./routes/login"));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api", require("./routes/cashFlow"));
-app.use("/api", require("./routes/aiAnalysis"));
 app.use("/api", require("./routes/budget"));
 app.use("/api", require("./routes/financialProfile"));  
 

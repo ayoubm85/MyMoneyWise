@@ -1,6 +1,7 @@
 const express = require("express");
 const Budget = require("../models/Budget");
-const CashFlow = require("../models/CashFlow")
+const CashFlow = require("../models/CashFlow");
+const FinancialProfile = require("../models/FinancialProfile");
 const { analyzeBudget }= require("../services/aiService")
 const router = express.Router();
 
@@ -52,51 +53,71 @@ router.get("/budget/:userId", async (req, res) => {
     }
   });
 
-router.delete("/budget/:userId", async (req, res) => {
+  router.post("/budget/analyze", async (req, res) => {
+    try {
+      const { userId } = req.body;
+  
+      if (!userId) {
+        return res.status(400).json({ error: "User ID is required." });
+      }
+      
+      const budget = await Budget.findOne({ userId });
+      if (!budget || !budget.categories || budget.categories.length === 0) {
+        console.log("❌ No budget or empty categories for user:", userId);
+        return res.status(404).json({ error: "No budget or empty categories found for user." });
+      }
+  
+      const startOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+      const expenses = await CashFlow.find({ userId, date: { $gte: startOfMonth } });
+  
+
+      let financialProfile = await FinancialProfile.findOne({ userId });
+
+      if (!financialProfile) {
+        console.log("❌ No financial profile found. Creating a default profile.");
+        financialProfile = {
+          age: null,
+          employmentStatus: "Unknown",
+          monthlyIncome: 0,
+          financialGoal: "Not specified",
+          additionalNotes: "",
+        };
+      }
+
+      const aiResponse = await analyzeBudget(budget, expenses, financialProfile);
+  
+      res.json(aiResponse);
+    } catch (error) {
+      console.error("❌ Budget Analysis Error:", error);
+      res.status(500).json({ error: "AI budget analysis failed." });
+    }
+  });
+  
+  router.put("/budget/:userId", async (req, res) => {
     const { userId } = req.params;
+    const { totalBudget, categories } = req.body;
+  
+    if (!totalBudget || !categories || categories.length === 0) {
+      return res.status(400).json({ message: "Total budget and categories are required." });
+    }
   
     try {
-      const deletedBudget = await Budget.findOneAndDelete({ userId });
+      const updatedBudget = await Budget.findOneAndUpdate(
+        { userId },
+        { totalBudget, categories },
+        { new: true, runValidators: true } 
+      );
   
-      if (!deletedBudget) {
+      if (!updatedBudget) {
         return res.status(404).json({ message: "No budget found for this user." });
       }
   
-      res.status(200).json({ message: "Budget deleted successfully" });
+      res.status(200).json(updatedBudget);
     } catch (error) {
-      console.error(error);
+      console.error("❌ Error updating budget:", error);
       res.status(500).json({ message: "Server error" });
     }
   });
-
-router.post("/budget/analyze", async (req, res) => {
-  try {
-    const { userId } = req.body;
-
-    if (!userId) {
-      return res.status(400).json({ error: "User ID is required." });
-    }
-
-    const budget = await Budget.findOne({ userId });
-    if (!budget) {
-      return res.status(404).json({ error: "No budget found for user." });
-    }
-
-    const startOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
-    const expenses = await CashFlow.find({
-      userId,
-      type: "expense",
-    createdAt: { $gte: startOfMonth }, 
-    });
-
-    const aiResponse = await analyzeBudget(budget, expenses);
-
-    res.json(aiResponse);
-  } catch (error) {
-    console.error("❌ Budget Analysis Error:", error);
-    res.status(500).json({ error: "AI budget analysis failed." });
-  }
-});
   
 
 module.exports = router;
